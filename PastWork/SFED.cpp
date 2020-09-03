@@ -3,7 +3,7 @@
 //	Completed code for Suffix Tree Edit Distance Algorithm
 //
 
-#include "SuffixTreeED.h"
+#include "SFED.h"
 #include <string>
 #include <vector>
 #include <sdsl/suffix_trees.hpp>

@@ -1,11 +1,14 @@
 #include "DPED.h"
 #include "GreedyED.h"
-#include "SuffixTreeED.h"
+#include "SFED.h"
 #include <string>
 #include <iostream>
 #include <chrono>
 #include <vector>
 #include <fstream>
+
+typedef SuffixTreeED SFED;
+
 /*TO COMPILE ON LINUX TERMINAL:
  g++ -std=c++11 -O3 -DNDEBUG -I ~/include -L ~/lib main.cpp -o ged DPED.h GreedyED.h DPED.cpp GreedyED.cpp SuffixTreeED.h SuffixTreeED.cpp Elem.h -lsdsl -ldivsufsort -ldivsufsort64
  * ************************/
