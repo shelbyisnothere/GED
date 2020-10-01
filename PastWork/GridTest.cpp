@@ -39,7 +39,9 @@ int main() {
 	}
 	inFile.close();
 
-
+	//track size of first curve
+	int p = curve1.size();
+	
 	inFile.open("t2_3d.txt");
 	//read second curve
 	cerr << "\nReading input 2";
@@ -55,5 +57,40 @@ int main() {
 	cout << "\nBounding box computed successfully.";
 	Planimetric_grid grid(curve1, Pmap(), bbox, grid_resolution);
 
+	//query grid
+	vector<int> S;
+	vector<int> T;
+	int character;
 
+	for(int i = 0; i < curve1.size(); i++)
+	  {
+	    if(i < p)
+	      {
+		character = grid.x(i) + grid.y(i);
+		S.push_back(character);
+	      }
+	    else
+	      {
+		character = grid.x(i) + grid.y(i);
+		T.push_back(character);
+	      }
+	  }
+	
+	//write unshifted grid string to file
+	ofstream out;
+
+	out.open("data/string.text");
+
+	if(!out)
+	  {
+	    cerr << "Error opening file";
+	    return 1;
+	  }
+	int i = 0;
+	for(int c : S)
+	  {
+	    out << c << "\t" << T[i] << endl;
+	    i++;
+	  }
+	out.close();
 }
