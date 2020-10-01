@@ -6,15 +6,15 @@
 
 #include <iostream>
 #include <vector>
-#include <CGAL/Simple_cartesian.h>
+//#include <CGAL/Simple_cartesian.h>
 #include <CGAL/Classification.h>
 #include <CGAL/bounding_box.h>
 #include "RandomShift.h"
 
 using namespace std;
 
-typedef CGAL::Simple_cartesian<double> Kernel;
-typedef Kernel::Point_3 Point;
+//typedef CGAL::Simple_cartesian<double> Kernel;
+//typedef Kernel::Point_3 Point;
 typedef std::vector<Point> Point_range;
 typedef CGAL::Identity_property_map<Point> Pmap;
 typedef Kernel::Iso_cuboid_3 Iso_cuboid_3;

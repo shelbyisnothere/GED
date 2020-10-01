@@ -7,27 +7,31 @@
 #define _RANDOM_SHIFT_
 
 #include <vector>
+#include <CGAL/Simple_cartesian.h>
+
+typedef CGAL::Simple_cartesian<double> Kernel;
+typedef Kernel::Point_3 Point;
 
 class RandomShift
 {
  private:
   //point sequences
-  vector<Point> ptSeq1;
-  vector<Point> ptSeq2;
+  std::vector<Point> ptSeq1;
+  std::vector<Point> ptSeq2;
 
   //strings
-  vector<int> S;
-  vector<int> T;
-
+  std::vector<int> S;
+  std::vector<int> T;
+  
  public:
   //constructor
-  RandomShift(vector<Point> p, vector<Point> q);
+  RandomShift(std::vector<Point> p, std::vector<Point> q);
 
   //function to shift grid
   void shiftGrid(int g, int n);
 
   //function to get string
-  vector<int> getString(char string);
+  std::vector<int> getString(char string);
 }
 
 #endif //_RANDOM_SHIFT_

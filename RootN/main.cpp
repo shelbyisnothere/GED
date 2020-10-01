@@ -63,6 +63,8 @@ int main(int argc, char * argv[]){
   int g;	//guess value
   bool out;	//for SED
   double sum;
+  vector<int> S;
+  vector<int> T;
   
   for(int i = 0; i < min(np, nq); i++) {
     sum += CGAL::sqrt(CGAL::squared_distance(p[i], q[i]));
@@ -75,12 +77,17 @@ int main(int argc, char * argv[]){
     for(int i = 0; i < log(CGAL::sqrt(min(np, nq))); i++){
       g = pow(2, i);
       //transform p ad q to strings
+      RandomShift shift(p, q);
+      shift.shiftGrid(g, n);
+      S = shift.getString('S');
+      T = shift.getString('T');
       //out = SED(s, t, 12root(n) + 2g)
       if(!(out == false)){
 	//return out??
       }
     }
-  }*/
+  }
+
 
   //return empty matching
   return 0;
