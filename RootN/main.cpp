@@ -10,6 +10,8 @@
 #include <CGAL/squared_distance_3.h>
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/IO/read_xyz_points.h>
+#include <CGAL/number_utils.h>
+#include "RandomShift.h"
 
 using namespace std;
 
@@ -19,9 +21,9 @@ typedef Kernel::Point_3 Point;
 int main(int argc, char * argv[]){
   //load data points
   vector<Point> p;
-  vector<Point> q;
-  double x, y;
-  int np, nq;
+  vector<Point> q;	
+  double x, y;		//for loading in individual points
+  int np, nq;		//overall number of points in p and q
   
   ifstream inFile;
   //read p
@@ -48,47 +50,56 @@ int main(int argc, char * argv[]){
 
   cout << "\nReading file: " << argv[2] << endl;
 
-  inFile >> y;
+  inFile >> nq;
   
   while(inFile >> x >> y)
   {
     Point point(x, y, 0);
-    p.push_back(point);
+    q.push_back(point);
   }
 
   inFile.close();
   
   //begin algorithm 1
-  bool tmp;	//place holder for dist(p, q)
-  int g;	//guess value
-  bool out;	//for SED
+  bool tmp;		//place holder for dist(p, q)
+  int g;		//guess value
+  bool out;		//for SED
   double sum;
   vector<int> S;
   vector<int> T;
+  double c = 1.0;	//sufficiently large c
   
+  cout << "\nComparing sum of distance between points..." << endl;
   for(int i = 0; i < min(np, nq); i++) {
     sum += CGAL::sqrt(CGAL::squared_distance(p[i], q[i]));
   }
 
-  if(sum < 0){
+  if(np != nq)
+    {//cant return matching w uneven strings(?)
+      sum = 1;
+    }
+  if(sum < 1){
     //return matching?
   }
   else {
-    for(int i = 0; i < log(CGAL::sqrt(min(np, nq))); i++){
+    cout << "\nConverting to strings S and T, and comparing edit distance..." << endl;
+    for(int i = 0; i < log(sqrt(max(np, nq))); i++){
       g = pow(2, i);
-      //transform p ad q to strings
-      RandomShift shift(p, q);
-      shift.shiftGrid(g, n);
-      S = shift.getString('S');
-      T = shift.getString('T');
-      //out = SED(s, t, 12root(n) + 2g)
-      if(!(out == false)){
-	//return out??
-      }
-    }
-  }
+      for(int j = 0; j < c * log(max(np, nq)); j++)
+	{
+	  //transform p and q to strings
+	  RandomShift shift(p, q);
+	  shift.shiftGrid(g, max(np, nq));
+	  S = shift.getS();
+	  T = shift.getT();
+	  //SED
+	  //if(!out)
+	}
+    }//end outer for
 
+    //return empty matching
+    
+  }//end else
 
-  //return empty matching
   return 0;
 }

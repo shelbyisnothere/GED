@@ -30,8 +30,10 @@ class RandomShift
   //function to shift grid
   void shiftGrid(int g, int n);
 
-  //function to get string
-  std::vector<int> getString(char string);
-}
+  //functions to get strings
+  std::vector<int> getS();
+
+  std::vector<int> getT();
+};
 
 #endif //_RANDOM_SHIFT_
