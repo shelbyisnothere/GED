@@ -97,13 +97,14 @@ int main(int argc, char * argv[]){
 
   for(size_t i = 0; i < S.size(); i++)
     {
-      cout << S[i] << " ";
+      cerr << S[i] << " ";
     }
+  cerr << endl;
   for(size_t i = 0; i < T.size(); i++)
     {
-      cout << T[i] << " ";
+      cerr << T[i] << " ";
     }
-  cout << endl;
+  cerr << endl << endl;
 	  //SED
 	  //if(!out)
 	}

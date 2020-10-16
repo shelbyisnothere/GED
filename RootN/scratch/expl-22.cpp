@@ -26,5 +26,12 @@ int main()
     {
       cout << vec[i] << " ";
     }
+
+  int_vector <> tmp2 = {1, 2, -3, -4, 5, 6};
+  cout << endl;
+    for(size_t i = 0; i < tmp2.size(); i++)
+    {
+      cout << tmp2[i] << " ";
+    }
   return 0;
 }

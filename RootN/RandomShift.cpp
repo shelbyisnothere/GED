@@ -81,28 +81,32 @@ void RandomShift::shiftGrid(int g, int n){
   //query grid to get string s & t
   int character;
   int max = std::max(grid.width(), grid.height());
-  
+  cout << "max: " << max << endl
+       << "\twidth: " << grid.width() << endl
+       << "\theight: " << grid.height() << endl;
+  int lower = 0;
   for(int i = 0; i < pts.size(); i++)
     {
-      //create unique chracter for string at index i
-      	// below diagonal = negative integer
-      	// above diagonal = positive integer
-      	// on diagonal = mx(grid width, grid height) + grid.x()
-      character = grid.x(i) - grid.y(i);
-      if(character == 0)
-	{
-	  character = max + grid.x(i);
-	}
-      //append character to respective string
+      //assign unique integer for each grid cell
+      if(grid.x(i) == grid.y(i)) //diagonal
+	character = grid.x(i) * grid.y(i);
+      if(grid.x(i) < grid.y(i)) //upper
+	character = (grid.y(i) * grid.y(i)) + grid.x(i) + 1;
+      if(grid.x(i) > grid.y(i)) //lower
+	character = (grid.x(i) * grid.x(i)) + grid.x(i) + grid.y(i) + 1;
+
+	  //append character to respective string
       if(i < ptSeq1.size())
 	{
-	  S = push(S, character);
+	  S.resize(S.size() + 1);
+	  S[S.size() - 1] = character;
 	}
       else
 	{
 	  T = push(T, character);
 	}
     }
+  cout << "\tlower: " << lower << endl;
 }
 
 //
