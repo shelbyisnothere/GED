@@ -16,6 +16,7 @@
 #include "RandomShift.h"
 
 using namespace std;
+using namespace sdsl;
 
 //typedef CGAL::Simple_cartesian<double> Kernel;
 //typedef Kernel::Point_3 Point;
@@ -31,7 +32,10 @@ typedef CGAL::Aff_transformation_3<Kernel> Transform;
 //
 RandomShift::RandomShift(vector<Point> ptSeq1, vector<Point> ptSeq2)
   :ptSeq1(ptSeq1), ptSeq2(ptSeq2)
-{}
+{
+  S.resize(0);
+  T.resize(0);
+}
 
 //
 //	function to perform shift on pts and compute S and T
@@ -75,18 +79,21 @@ void RandomShift::shiftGrid(int g, int n){
   
   //query grid to get string s & t
   int character;
-  for(int i = 0; i < pts.size(); i ++)
+  for(int i = 0; i < pts.size(); i++)
     {
       //create unique chracter for string at index i
       character = grid.x(i) + grid.y(i);
+      cout << endl << grid.x(i) << " " << grid.y(i) << endl;
       //append character to respective string
       if(i < ptSeq1.size())
 	{
-	  S.push_back(character);
+	  //S = push(S, character);
+	  S.resize(S.size() + 1);
+	  S[S.size() - 1] = character;
 	}
       else
 	{
-	  T.push_back(character);
+	  T = push(T, 6);
 	}
     }
 }
@@ -94,7 +101,7 @@ void RandomShift::shiftGrid(int g, int n){
 //
 // function to get string S
 //
-vector<int> RandomShift::getS()
+int_vector<> RandomShift::getS()
 {
   return S;
 }
@@ -102,7 +109,19 @@ vector<int> RandomShift::getS()
 //
 // function to get string T
 //
-vector<int> RandomShift::getT()
+int_vector<> RandomShift::getT()
 {
   return T;
+}
+
+//
+// function to push onto a string
+//
+int_vector<> RandomShift::push(int_vector<> v, int i)
+{
+  int_vector<> tmp;
+  tmp = v;
+  tmp.resize(v.size() + 1);
+  tmp[tmp.size() - 1] = i;
+  return tmp;
 }

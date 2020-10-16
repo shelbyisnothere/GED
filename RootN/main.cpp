@@ -65,8 +65,8 @@ int main(int argc, char * argv[]){
   int g;		//guess value
   bool out;		//for SED
   double sum;
-  vector<int> S;
-  vector<int> T;
+  sdsl::int_vector<> S;
+  sdsl::int_vector<> T;
   double c = 1.0;	//sufficiently large c
   
   cout << "\nComparing sum of distance between points..." << endl;
@@ -92,6 +92,7 @@ int main(int argc, char * argv[]){
 	  shift.shiftGrid(g, max(np, nq));
 	  S = shift.getS();
 	  T = shift.getT();
+	  cout << endl << S.size() << " " << T.size();
 	  //SED
 	  //if(!out)
 	}
@@ -101,5 +102,14 @@ int main(int argc, char * argv[]){
     
   }//end else
 
+  for(size_t i = 0; i < S.size(); i++)
+    {
+      cout << S[i] << " ";
+    }
+  for(size_t i = 0; i < T.size(); i++)
+    {
+      cout << T[i] << " ";
+    }
+  
   return 0;
 }

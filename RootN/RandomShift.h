@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <CGAL/Simple_cartesian.h>
+#include <sdsl/suffix_trees.hpp>
 
 typedef CGAL::Simple_cartesian<double> Kernel;
 typedef Kernel::Point_3 Point;
@@ -20,8 +21,8 @@ class RandomShift
   std::vector<Point> ptSeq2;
 
   //strings
-  std::vector<int> S;
-  std::vector<int> T;
+  sdsl::int_vector<> S;
+  sdsl::int_vector<> T;
   
  public:
   //constructor
@@ -31,9 +32,13 @@ class RandomShift
   void shiftGrid(int g, int n);
 
   //functions to get strings
-  std::vector<int> getS();
+  sdsl::int_vector<> getS();
 
-  std::vector<int> getT();
+  sdsl::int_vector<> getT();
+
+private:
+  //private function to push onto string vectors
+  sdsl::int_vector<> push(sdsl::int_vector<> v, int i);
 };
 
 #endif //_RANDOM_SHIFT_
