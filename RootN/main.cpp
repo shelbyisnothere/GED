@@ -85,6 +85,8 @@ int main(int argc, char * argv[]){
     cout << "\nConverting to strings S and T, and comparing edit distance..." << endl;
     for(int i = 0; i < log(sqrt(max(np, nq))); i++){
       g = pow(2, i);
+      if(g > 2)
+	break;
       for(int j = 0; j < c * log(max(np, nq)); j++)
 	{
 	  //transform p and q to strings
@@ -92,15 +94,6 @@ int main(int argc, char * argv[]){
 	  shift.shiftGrid(g, max(np, nq));
 	  S = shift.getS();
 	  T = shift.getT();
-	  cout << endl << S.size() << " " << T.size();
-	  //SED
-	  //if(!out)
-	}
-    }//end outer for
-
-    //return empty matching
-    
-  }//end else
 
   for(size_t i = 0; i < S.size(); i++)
     {
@@ -110,6 +103,15 @@ int main(int argc, char * argv[]){
     {
       cout << T[i] << " ";
     }
+  cout << endl;
+	  //SED
+	  //if(!out)
+	}
+    }//end outer for
+
+    //return empty matching
+    
+  }//end else
   
   return 0;
 }

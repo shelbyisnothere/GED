@@ -13,6 +13,7 @@
 #include <CGAL/Vector_3.h>
 #include <CGAL/aff_transformation_tags.h>
 #include <random>
+#include <algorithm>
 #include "RandomShift.h"
 
 using namespace std;
@@ -79,21 +80,27 @@ void RandomShift::shiftGrid(int g, int n){
   
   //query grid to get string s & t
   int character;
+  int max = std::max(grid.width(), grid.height());
+  
   for(int i = 0; i < pts.size(); i++)
     {
       //create unique chracter for string at index i
-      character = grid.x(i) + grid.y(i);
-      cout << endl << grid.x(i) << " " << grid.y(i) << endl;
+      	// below diagonal = negative integer
+      	// above diagonal = positive integer
+      	// on diagonal = mx(grid width, grid height) + grid.x()
+      character = grid.x(i) - grid.y(i);
+      if(character == 0)
+	{
+	  character = max + grid.x(i);
+	}
       //append character to respective string
       if(i < ptSeq1.size())
 	{
-	  //S = push(S, character);
-	  S.resize(S.size() + 1);
-	  S[S.size() - 1] = character;
+	  S = push(S, character);
 	}
       else
 	{
-	  T = push(T, 6);
+	  T = push(T, character);
 	}
     }
 }
