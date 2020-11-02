@@ -16,22 +16,23 @@ int_vector<> push(int_vector<> v, int i)
 
 int main()
 {
-  int_vector<> vec(0);
-  int_vector<> tmp(3);
-  tmp[0] = 1;
-  tmp[1] =2;
-  tmp[2] = 4;
-  vec = push(vec, 1);
-  for(size_t i = 0; i < vec.size(); i++)
+  int_vector<> vec = {1, 2, 1, 3, 2, 1, 4, 5, 1, 2, 1, 3, 2, 1, 2};
+  cst_sct3<csa_wt<wt_int<rrr_vector<>>>> cst;
+  construct_im(cst, vec);
+
+  //leaftable
+  vector<int> leafTable(vec.size() + 1, 0);
+  for(int i = 1; i <= vec.size(); i++)
     {
-      cout << vec[i] << " ";
+      auto v = cst.select_leaf(i);
+      int index = vec.size() - cst.depth(v) + 1;
+      leafTable[index] = i;
     }
 
-  int_vector <> tmp2 = {1, 2, -3, -4, 5, 6};
-  cout << endl;
-    for(size_t i = 0; i < tmp2.size(); i++)
-    {
-      cout << tmp2[i] << " ";
-    }
+  //test depth
+  cout << "Test depth: "
+       <<  cst.depth(cst.lca(cst.select_leaf(leafTable[0]),
+			     cst.select_leaf(leafTable[8])));
+
   return 0;
 }
