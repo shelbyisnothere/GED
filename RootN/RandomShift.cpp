@@ -34,8 +34,10 @@ typedef CGAL::Aff_transformation_3<Kernel> Transform;
 RandomShift::RandomShift(vector<Point> ptSeq1, vector<Point> ptSeq2)
   :ptSeq1(ptSeq1), ptSeq2(ptSeq2)
 {
+  //reset string vectors
   S.resize(0);
   T.resize(0);
+  SxTy.resize(0);
 }
 
 //
@@ -98,12 +100,21 @@ void RandomShift::shiftGrid(int g, int n){
 	  //append character to respective string
       if(i < ptSeq1.size())
 	{
-	  S.resize(S.size() + 1);
-	  S[S.size() - 1] = character;
+	  S = push(S, character);
+	  SxTy = push(SxTy, character);
 	}
-      else
+      else if(i == ptSeq1.size())
+	{
+	  SxTy = push(SxTy, -2);
+	}
+      else if (i < (ptSeq1.size() + ptSeq2.size()))
 	{
 	  T = push(T, character);
+	  SxTy = push(SxTy, character);
+	}
+      else if (i == (ptSeq1.size() + ptSeq2.size()))
+	{
+	  SxTy = push(SxTy, -1);
 	}
     }
   cout << "\tlower: " << lower << endl;
@@ -123,6 +134,14 @@ int_vector<> RandomShift::getS()
 int_vector<> RandomShift::getT()
 {
   return T;
+}
+
+//
+// function to get concatenated strings
+//
+int_vector<> RandomShift::getSxTy()
+{
+  return SxTy;
 }
 
 //

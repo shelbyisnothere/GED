@@ -23,6 +23,7 @@ class RandomShift
   //strings
   sdsl::int_vector<> S;
   sdsl::int_vector<> T;
+  sdsl::int_vector<> SxTy;
   
  public:
   //constructor
@@ -36,6 +37,8 @@ class RandomShift
 
   sdsl::int_vector<> getT();
 
+  sdsl::int_vector<> getSxTy();
+  
 private:
   //private function to push onto string vectors
   sdsl::int_vector<> push(sdsl::int_vector<> v, int i);
