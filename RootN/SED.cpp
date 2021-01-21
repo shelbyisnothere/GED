@@ -4,12 +4,13 @@
 //
 
 #include <vector>
-#include <SED.h>
+#include "SED.h"
+#include "Elem.h"
 
 using namespace std;
 using namespace sdsl;
 
-typedef cst_sct3<csa_wt<wt_int<rrr_vector>>>> cst_t;
+typedef cst_sct3<csa_wt<wt_int<rrr_vector<>>>> cst_t;
 
 //
 // Constructor only takes concatenated strings
@@ -19,7 +20,7 @@ SED::SED(int_vector<> AxBy, int k)
 {}
 
 
-int SuffixTreeED::computeED() {
+int SED::computeED() {
   cst_t cst;
   construct_im(cst, AxBy);
   vector<Elem> prev((2 * k) + 1, {0, Elem::POSITION::none, 0, 0});
@@ -38,7 +39,7 @@ int SuffixTreeED::computeED() {
 
   //first diagonal
   prev[k] = {0, Elem::POSITION::diagonal, cst.depth(cst.lca(cst.select_leaf(leafTable[0]),
-							    cst.select_leaf(leafTaable[lengthA + 1]))), 0};
+							    cst.select_leaf(leafTable[lengthA + 1]))), 0};
 
   //if strings are the same
   if(lengthB - lengthA == 0 && prev[k].i == lengthA)
@@ -122,9 +123,9 @@ int SuffixTreeED::computeED() {
   return 0;
 }
 
-vector<int> SED::optimalPath()
+/*vector<int> SED::optimalPath()
 {
   //return empty for now
   vector<int> tmp;
   return tmp;
-}
+  }*/

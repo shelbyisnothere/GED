@@ -28,11 +28,11 @@ int main()
   //leaftable
   vector<int> leafTable(vec.size() + 1, 0);
   cout << vec.size() << endl << endl;
-  for(int i = 1; i <= vec.size(); i++)
+  for(int i = 1; i <= vec.size() + 1; i++)
     {
       auto v = cst.select_leaf(i);
       int index = vec.size() - cst.depth(v) + 1;
-      cout << cst.depth(v) << endl;
+      cout << index << ": " << cst.depth(v) << endl;
       leafTable[index] = i;
     }
 
